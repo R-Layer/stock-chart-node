@@ -6,18 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="/socket.io/socket.io.js"></script>
+    <script src="/chart"></script>
+    <link rel="stylesheet" href="./css/main.css">
     <title>Stock chart app </title>
 </head>
 
 <body>
-    <h1>Stock chart app - FCC Project</h1>
+    <h1 class="title">Stock chart app - FCC Project</h1>
 
     <div id="stock-chart"></div>
 
-    <input type="text" id="add-stock-input" />
-    <button id="add-stock-button" disabled>Add stock</button>
-    <ul id="stock-list"></ul>
-    <script src="/chart"></script>
+    <section id="stock-panel" class="stock-panel">
+        <input type="text" id="add-stock-input" />
+        <span id="add-stock-button" class="button" disabled>Add stock</span>
+    </section>
     <script src="/js/DOMmanipulation.js"></script>
     <script src="/js/ZingChartLogic.js"></script>
 

@@ -1,6 +1,6 @@
 const btn_addStock = document.getElementById("add-stock-button");
 const stockToAdd = document.getElementById("add-stock-input");
-const actualStockList = document.getElementById("stock-list");
+const stockPanel = document.getElementById("stock-panel");
 const graph = document.getElementById("stock-chart");
 const socket = io.connect();
 
@@ -39,38 +39,45 @@ socket.on("Init list", data => refreshWindow(data));
 socket.on("Stock list", data => refreshWindow(data));
 
 function refreshWindow(data) {
-  console.log("refreshing", data);
   stockToRender = [...data];
   createStockList();
   collectAndRender();
 }
 
 function createStockList() {
-  /* ------------------------------------------------------------ */
-  /* ------- Credits to  GABRIEL MCADAMS [STACK OVERFLOW]-------- */
-  /* ------------------------------------------------------------ */
-  while (actualStockList.lastChild) {
-    actualStockList.removeChild(actualStockList.lastChild);
+  while (stockPanel.childElementCount > 2) {
+    stockPanel.removeChild(stockPanel.lastChild);
   }
-  /* ------------------------------------------------------------ */
+
   stockToRender.forEach(el => {
-    let newListItem = document.createElement("li");
+    let newStockItem = document.createElement("div");
     let btnItem = document.createElement("button");
+    let labelItem = document.createElement("label");
     let textItem = document.createTextNode(el.name);
     let textButton = document.createTextNode("remove stock");
 
     btnItem.onclick = function() {
-      removeItem(el);
+      removeItem(this);
+      stockToAdd.value = "";
     };
 
+    newStockItem.setAttribute("class", "stock-element");
+    labelItem.setAttribute("class", "stock-label");
+    btnItem.setAttribute("class", "remove-button");
+    btnItem.setAttribute("id", el.symbol);
+
+    labelItem.appendChild(textItem);
     btnItem.appendChild(textButton);
-    newListItem.appendChild(textItem);
-    newListItem.appendChild(btnItem);
-    actualStockList.appendChild(newListItem);
+    newStockItem.appendChild(labelItem);
+    newStockItem.appendChild(btnItem);
+    stockPanel.appendChild(newStockItem);
   });
 }
 
-function removeItem(stockToRemove) {
-  console.log(stockToRemove);
-  socket.emit("Stock removed", stockToRemove);
+function removeItem(e) {
+  socket.emit("Stock removed", e.id);
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

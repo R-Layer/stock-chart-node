@@ -1,0 +1,41 @@
+#stock-chart {
+  height: 400px;
+}
+
+.title {
+  text-align: center;
+}
+
+.button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  text-align: center;
+  font-size: 16px;
+  box-shadow: 2px 4px #bbb;
+}
+
+.stock-panel {
+  display: flex;
+  flex-flow: column;
+  margin: 20px 10%;
+  border: 1px solid #222;
+  padding: 20px;
+}
+
+.stock-element {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.stock-label {
+  color: #734268;
+}
+
+.remove-button {
+  background-color: #c45;
+}
